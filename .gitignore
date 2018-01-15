@@ -1,5 +1,7 @@
 ## Database
 /db/*.sqlite
+##Vagrant
+.vagrant
 
 *.gem
 *.rbc
