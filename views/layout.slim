@@ -1,0 +1,15 @@
+doctype html
+link rel ="stylesheet" type ="text/css" href="/css/main.css"
+html
+    head
+        title Kampanjerna
+    body
+        - if session[:admin] 
+            h1 Greetings #{session[:username]}
+            form action='/logout' method='post'
+                button type='submit' Logga ut
+
+        - else
+            h1 Greetings! 
+
+        == yield
