@@ -2,11 +2,11 @@ class Get < Sinatra::Base
 
     enable :sessions
 
-    get '/'
+    get '/' do
     # if session[:admin]
     #     @admin = true
     # end
-    # slim :'login'
+     slim :'start'
     end
 
 end    
