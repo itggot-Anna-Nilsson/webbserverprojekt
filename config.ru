@@ -8,8 +8,8 @@ Bundler.require
 require_relative 'get.rb'
 
 #Load the models 
-require_relative 'models/student.rb'
-require_relative 'models/computer.rb'
+#require_relative 'models/'
+#require_relative 'models/'
 
 #
 Slim::Engine.set_options pretty: true, sort_attrs: false
