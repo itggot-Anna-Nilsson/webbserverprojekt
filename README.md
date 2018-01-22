@@ -5,3 +5,5 @@ Inloggade användare kommer att kunna göra inlägg, exempelvis loggar från oli
 Användaren kommer att kunna ta del av olika kampanjer och i dem ha olika roller, exempelvis spelledare och spelare.  
 
 ![ER-diagram V1](https://github.com/itggot-Anna-Nilsson/webbserverprojekt/raw/master/er-diagramV1.jpg "ER-diagram V1")
+
+![Sequence diagram login V1](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgbG9naW4KCkJyb3dzZXIgLT4gV2ViLXNlcnZlcjogSFRUUCBwb3N0IC8AIwYAEwogLT4gZ2V0LnJiOiBnZXQoJwAcBicpCgAQBgAUDG1hdGNoIHJvdXRlABMZZGI6IFNFTEVDVCBwYXNzd29yZCBGUk9NIFVzZXJzIFdIRVJFIHVzZXJuYW1lIElTID8nLAAHCQpkAGMNW1tpZCwgbmFtZSwgaGFzaF1dAIECE2NoZWNrIGlmAGUKaXMgY29ycmVjdACBMRNlbmFibGUgc2Vzc2lvbls6YWRtaW4ATAwAgiwMcmVkaXJlY3QgJy9zdGFydCcAgioPAIJoBwCCXAVUUAAlCigAKAgpAIMKCACCfxJUUCBnZQAeDQCCfxYAgzcFABsPAIJ6IQB5CQCDMxRzbGltICgnADsSAIQlDk1MAIFTG1AgcmVzcG9uc2UgKyBjb29raWVzIAoK&s=patent "Sequence diagram login V1")
