@@ -9,7 +9,7 @@ require_relative 'get.rb'
 
 #Load the models 
 #require_relative 'models/'
-#require_relative 'models/'
+require_relative 'models/user'
 
 #
 Slim::Engine.set_options pretty: true, sort_attrs: false
