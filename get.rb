@@ -26,7 +26,7 @@ class Get < Sinatra::Base
         if stored_password == username + password
             session[:admin] = true
             session[:username] = username
-            redirect '/home'
+            redirect '/start'
         end
         redirect '/'
     end
