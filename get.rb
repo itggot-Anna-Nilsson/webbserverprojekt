@@ -62,5 +62,33 @@ class Get < Sinatra::Base
     get '/wrongkey' do
         slim :'wrongkey'
     end
+
+#-------------------------------------------------------------------------
+
+    get '/logs' do
+        if session[:admin]
+            db = SQLite3::Database.open('db/db.sqlite')            
+            @all_logs = db.execute('SELECT * FROM Posts')
+            slim :'logs'
+        else
+            halt 401, slim(:forbidden, layout: false)
+        end
+    end
+
+    post '/remove_logg/:id' do
+        db = SQLite3::Database.open('db/db.sqlite')
+        id = params['id']          
+        db.execute('DELETE FROM Posts WHERE id is ?', id) 
+        redirect '/logs'       
+    end
+
+    post '/add_logg' do
+        db = SQLite3::Database.open('db/db.sqlite')
+        titel = params['date']
+        summary = params['summary']
+        text = params['description']   
+        db.execute('INSERT INTO Loggar (titel, test, picture, Post-date) VALUES (?,?,?)', [Titel, Text, Picture, Post-date])        
+        redirect '/logg'
+    end
     
 end
