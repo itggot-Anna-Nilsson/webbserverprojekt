@@ -1,18 +1,22 @@
 a> href="/home" HOME
 
 form action='/add_log' method='post'
-    input.logg_date type='text' name='date' placeholder='Date'
+    input.logg_date type='text' name='title' placeholder='Title'
     br
-    input.logg_summary type='text' name='summary'placeholder='Short Summary'
+    input.logg_summary type='text' name='log' placeholder='log'
     br
-    input.logg_text type='text' name='description'placeholder='Text'
+    input.logg_text type='text' name='picture'placeholder='picture(eventuell)'
+    br
+    input.logg_text type='text' name='date'placeholder='date'
     br
     button type='submit' Submit!
     
-- for logg in @all_logs
-    h1 = logg[1]
-    p = logg[2]
-    p = logg[3]
+- for log in @all_logs
+    h1 = log[1]
+    h3 = log[4]
+    p = log[2]
+    p = log[3]
 
-form action="remove_log/#{log[0]}" method='post'
-    button type='submit' Ta bort
+    - if log[0]
+        form action="remove_log/#{log[0]}" method='post'
+            button type='submit' Ta bort

@@ -68,27 +68,28 @@ class Get < Sinatra::Base
     get '/logs' do
         if session[:admin]
             db = SQLite3::Database.open('db/db.sqlite')            
-            @all_logs = db.execute('SELECT * FROM Posts')
+            @all_logs = db.execute('SELECT * FROM logs')
             slim :'logs'
         else
             halt 401, slim(:forbidden, layout: false)
         end
     end
 
-    post '/remove_logg/:id' do
+    post '/remove_log/:id' do
         db = SQLite3::Database.open('db/db.sqlite')
         id = params['id']          
-        db.execute('DELETE FROM Posts WHERE id is ?', id) 
+        db.execute('DELETE FROM logs WHERE id is ?', id) 
         redirect '/logs'       
     end
 
-    post '/add_logg' do
+    post '/add_log' do
         db = SQLite3::Database.open('db/db.sqlite')
-        titel = params['date']
-        summary = params['summary']
-        text = params['description']   
-        db.execute('INSERT INTO Loggar (titel, test, picture, Post-date) VALUES (?,?,?)', [Titel, Text, Picture, Post-date])        
-        redirect '/logg'
+        titel = params['title']
+        text = params['log']
+        picture = params['picture']
+        postdate = params['date']   
+        db.execute('INSERT INTO logs (Title, Text, Picture, Postdate) VALUES (?,?,?,?)', [titel, text, picture, postdate])        
+        redirect '/logs'
     end
     
 end
