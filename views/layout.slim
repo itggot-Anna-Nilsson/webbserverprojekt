@@ -4,9 +4,13 @@ html
     head
         title Kampanjerna
     body
-        - if session[:admin] 
-            h1 Greetings #{session[:username]}
-            form action='/logout' method='post'
-                button type='submit' Logga ut
-
-        == yield
+        header
+            .logout
+                - if session[:admin]
+                    h1 PLACEHOLDER
+                    div.out 
+                        h3.username #{session[:username]}
+                        form action='/logout' method='post'
+                            button type='submit' Logga ut
+        .content
+            == yield

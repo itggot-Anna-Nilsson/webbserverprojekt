@@ -61,10 +61,11 @@ class Get < Sinatra::Base
     post '/add_log' do
         db = SQLite3::Database.open('db/db.sqlite')
         titel = params['title']
+        kampanj = params['kampanj']
         text = params['log']
         picture = params['picture']
-        postdate = params['date']   
-        db.execute('INSERT INTO logs (Title, Text, Picture, Postdate) VALUES (?,?,?,?)', [titel, text, picture, postdate])        
+        postdate = Time.now.strftime("%H:%M %d-%m-%Y")  
+        db.execute('INSERT INTO logs (kampanj_id, Title, Text, Picture, Postdate) VALUES (?,?,?,?,?)', [kampanj, titel, text, picture, postdate])        
         redirect '/logs'
     end
     
