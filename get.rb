@@ -24,34 +24,10 @@ class Get < Sinatra::Base
     end
 
     post '/new_user' do
-        db = SQLite3::Database.open('db/db.sqlite')
         username = params['username']
         password = params['password']
         key = params['key']
-
-        username_list = db.execute('SELECT name FROM Users')[0]
-        unused_username = true
-
-        p username_list
-        if username_list != nil
-            for i in username_list
-                if username == i
-                    unused_username = false
-                end
-            end
-        end
-
-        if key == "4242" && unused_username
-            cleartext = username + password
-            hash = BCrypt::Password.create(cleartext)
-            salt = hash.salt
-            db.execute('INSERT INTO users (name, hash) VALUES(?,?)', [username, hash])
-            session[:admin] = true
-            session[:username] = username
-            redirect '/start'
-        else 
-            redirect '/wrongkey'
-        end
+        User.new_user(username, password, key, self)
     end
 
     post '/logout' do
