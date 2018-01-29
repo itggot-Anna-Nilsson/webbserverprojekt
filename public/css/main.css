@@ -1,6 +1,7 @@
 body{
     background-color: #212121;
     color: white;
+    margin: 0;
 }
 
 a{
@@ -15,4 +16,42 @@ h1{
 
 a:hover{
     text-decoration: underline; 
+}
+
+header{
+    background-color: #080808;
+
+}
+
+.logout{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.out{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    align-items: center;
+    right: 40px;
+}
+
+.username{
+    margin-right: 20px;
+}
+.kampanjer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+}
+
+.ktitle{
+    column-span: 1;
+    margin-left: 20px; 
+    margin-right: 20px;
+}
+
+.content{
+    padding: 15px;
 }
