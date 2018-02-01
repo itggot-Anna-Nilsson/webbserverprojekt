@@ -39,17 +39,17 @@ class Get < Sinatra::Base
         slim :'wrongkey'
     end
 
-#-------------------------------------------------------------------------
 
     get '/logs' do
         if session[:admin]
-            db = SQLite3::Database.open('db/db.sqlite')            
-            @all_logs = db.execute('SELECT * FROM logs')
-            slim :'logs'
+           @all_logs = Logs.loggar
+           slim :'logs'
         else
             halt 401, slim(:forbidden, layout: false)
         end
     end
+
+#-------------------------------------------------------------------------
 
     post '/remove_log/:id' do
         db = SQLite3::Database.open('db/db.sqlite')
@@ -59,6 +59,9 @@ class Get < Sinatra::Base
     end
 
     post '/add_log' do
+        #Logs.add_log(self)
+
+
         db = SQLite3::Database.open('db/db.sqlite')
         titel = params['title']
         kampanj = params['kampanj']

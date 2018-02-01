@@ -1,22 +1,26 @@
 a> href="/start" HOME
 
 form action='/add_log' method='post'
+    input.logg_text type='text' name='kampanj'placeholder='Kampanj'
+    br
     input.logg_date type='text' name='title' placeholder='Title'
     br
     input.logg_summary type='text' name='log' placeholder='log'
     br
     input.logg_text type='text' name='picture'placeholder='picture(eventuell)'
     br
-    input.logg_text type='text' name='date'placeholder='date'
-    br
     button type='submit' Submit!
-    
-- for log in @all_logs
-    h1 = log[1]
-    h3 = log[4]
-    p = log[2]
-    p = log[3]
 
-    - if log[0]
-        form action="remove_log/#{log[0]}" method='post'
-            button type='submit' Ta bort
+-if @all_logs != nil 
+    - for log in @all_logs
+        h1 = log[2]
+        h3 = log[5]
+        p = log[3]
+        / p = log[3]
+
+        - if log[0]
+            form action="remove_log/#{log[0]}" method='post'
+                button type='submit' Ta bort
+
+
+ 
