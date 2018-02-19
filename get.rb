@@ -9,9 +9,28 @@ class Get < Sinatra::Base
         slim :'login'
     end
     
-    get '/start' do
+    get '/kampanjer' do
         if session[:admin]
-            slim :'start'
+            db = SQLite3::Database.open('db/db.sqlite') 
+            @campaigns = db.execute('SELECT id, name FROM Campaigns')
+            byebug
+            slim :'kampanjer'
+        else
+            halt 401, slim(:forbidden, layout: false)
+        end
+    end
+
+    get '/kampanj/:id/:name' do
+        db = SQLite3::Database.open('db/db.sqlite') 
+        id = params['id']        
+        db.execute('SELECT * FROM logs WHERE kampanj_id is ?', id) 
+        slim :'mutant'
+    end
+
+    get '/logs' do
+        if session[:admin]
+           @all_logs = Logs.loggar
+           slim :'logs'
         else
             halt 401, slim(:forbidden, layout: false)
         end
@@ -42,21 +61,7 @@ class Get < Sinatra::Base
     #halvklar implementering
     #måste fixa routen
 
-    get '/kampanj/:id/:name' do
-        db = SQLite3::Database.open('db/db.sqlite') 
-        id = params['id']        
-        db.execute('SELECT * FROM logs WHERE kampanj_id is ?', id) 
-        slim :'mutant'
-    end
 
-    get '/logs' do
-        if session[:admin]
-           @all_logs = Logs.loggar
-           slim :'logs'
-        else
-            halt 401, slim(:forbidden, layout: false)
-        end
-    end
 
 #-------------------------------------------------------------------------
 
