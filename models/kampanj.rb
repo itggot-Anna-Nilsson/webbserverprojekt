@@ -7,10 +7,19 @@ class Kampanj
 
     def self.add_kampanj
         db = SQLite3::Database.open('db/db.sqlite')
-        db.execute('INSERT INTO Campaigns() VALUES(?,?)',[])
+        db.execute('INSERT INTO Campaigns(Name,Status) VALUES(?,?)',[])
+        redirect
     end
 
     def self.status
+    end
+
+    # placeholders
+
+    def self.kommaåtloggar
+    end
+
+    def self.kommaåtusers
     end
     
 end
