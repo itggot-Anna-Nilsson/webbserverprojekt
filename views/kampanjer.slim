@@ -1,0 +1,16 @@
+h1 Samlade kampanjer
+a> href="/logs" Loggbok
+
+
+
+-for kampanj in @campaigns
+    .kampanjer
+        a> href="/kampanj/#{kampanj[0]}/#{kampanj[1]}"
+            h2.ktitle = kampanj[1]
+        / a> href="/dnd"
+        /     h2.ktitle Samuel får progression
+        / a> href="/spacenstuff"
+        /     h2.ktitle Ethels nya äventyr någonstans
+        / p> fyller i gridet så jag kan ha senaste loggen
+        / se till att man kan lägga till kampanjer
+        /samt att man kan arkivera dem
