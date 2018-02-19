@@ -39,6 +39,15 @@ class Get < Sinatra::Base
         slim :'wrongkey'
     end
 
+    #halvklar implementering
+    #måste fixa routen
+
+    get '/kampanj/:id/:name' do
+        db = SQLite3::Database.open('db/db.sqlite') 
+        id = params['id']        
+        db.execute('SELECT * FROM logs WHERE kampanj_id is ?', id) 
+        slim :'mutant'
+    end
 
     get '/logs' do
         if session[:admin]
