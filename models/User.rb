@@ -10,7 +10,7 @@ class User
         if stored_password == username + password
             get.session[:admin] = true
             get.session[:username] = username
-            get.redirect '/start'
+            get.redirect '/kampanjer'
         end
         get.redirect '/'
     end
@@ -35,7 +35,7 @@ class User
             db.execute('INSERT INTO users (name, hash) VALUES(?,?)', [username, hash])
             get.session[:admin] = true
             get.session[:username] = username
-            get.redirect '/start'
+            get.redirect '/kampanjer'
         else 
             get.redirect '/wrongkey'
         end
