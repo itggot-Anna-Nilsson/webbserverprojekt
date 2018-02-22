@@ -1,6 +1,15 @@
 h1 Samlade kampanjer
 a> href="/logs" Loggbok
 
+h2 Skapa ny Kampanj
+form action='/add_kampanj' method='post'
+    input.logg_text type='text' name='namn'placeholder='Namn'
+    br
+    select id="status" name="status"
+        option Pågående
+        option Slutförd
+    button type='submit' Submit!
+        
 
 
 -for kampanj in @campaigns

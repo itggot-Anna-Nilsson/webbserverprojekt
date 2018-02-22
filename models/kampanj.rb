@@ -5,10 +5,10 @@ class Kampanj
         return db.execute('SELECT * FROM Campaigns') 
     end
 
-    def self.add_kampanj
+    def self.add_kampanj(namn, status, get)
         db = SQLite3::Database.open('db/db.sqlite')
-        db.execute('INSERT INTO Campaigns(Name,Status) VALUES(?,?)',[])
-        redirect
+        db.execute('INSERT INTO Campaigns(Name,Status) VALUES(?,?)',[namn, status])
+        get.redirect 'kampanjer'
     end
 
     def self.status

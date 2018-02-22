@@ -13,7 +13,6 @@ class Get < Sinatra::Base
         if session[:admin]
             db = SQLite3::Database.open('db/db.sqlite') 
             @campaigns = db.execute('SELECT id, name FROM Campaigns')
-            byebug
             slim :'kampanjer'
         else
             halt 401, slim(:forbidden, layout: false)
@@ -25,6 +24,13 @@ class Get < Sinatra::Base
         id = params['id']        
         db.execute('SELECT * FROM logs WHERE kampanj_id is ?', id) 
         slim :'mutant'
+    end
+
+########################################
+    post '/add_kampanj' do
+        namn = params['namn']
+        status = params['status']
+        Kampanj.add_kampanj(namn, status, self)
     end
 
     get '/logs' do
