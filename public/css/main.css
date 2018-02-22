@@ -41,9 +41,16 @@ header{
 .username{
     margin-right: 20px;
 }
-.kampanjer{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+
+.kampanj{
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    width: 300px;
+    max-height: 600px;
+    overflow-y: scroll;
+    background-color: #080808;
+    overflow-wrap: break-word;
 }
 
 .ktitle{
@@ -55,3 +62,4 @@ header{
 .content{
     padding: 15px;
 }
+
