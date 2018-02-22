@@ -26,7 +26,6 @@ class Get < Sinatra::Base
         slim :'mutant'
     end
 
-########################################
     post '/add_kampanj' do
         namn = params['namn']
         status = params['status']
