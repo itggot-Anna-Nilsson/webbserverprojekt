@@ -11,8 +11,7 @@ class Get < Sinatra::Base
     
     get '/kampanjer' do
         if session[:admin]
-            db = SQLite3::Database.open('db/db.sqlite') 
-            @campaigns = db.execute('SELECT id, name FROM Campaigns')
+            @campaigns = Kampanj.all
             slim :'kampanjer'
         else
             halt 401, slim(:forbidden, layout: false)
@@ -24,6 +23,15 @@ class Get < Sinatra::Base
         id = params['id']        
         db.execute('SELECT * FROM logs WHERE kampanj_id is ?', id) 
         slim :'mutant'
+
+        #implementering av block, tillkommer 
+        # Kampanj.one( {id: 1})
+        # Kampanj.one( {name: "woot"} )
+
+        # Kampanj.all( {status: :active})
+
+        # Kampanj.all_active
+
     end
 
     post '/add_kampanj' do
@@ -66,8 +74,6 @@ class Get < Sinatra::Base
     #halvklar implementering
     #måste fixa routen
 
-
-
 #-------------------------------------------------------------------------
 
     post '/remove_log/:id' do
@@ -79,8 +85,6 @@ class Get < Sinatra::Base
 
     post '/add_log' do
         #Logs.add_log(self)
-
-
         db = SQLite3::Database.open('db/db.sqlite')
         titel = params['title']
         kampanj = params['kampanj']

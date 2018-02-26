@@ -2,7 +2,6 @@ class User
 
     attr_reader :username
 
-
     def self.login (username, password, get)
         db = SQLite3::Database.open('db/db.sqlite')        
         hash = db.execute('SELECT hash FROM Users WHERE name IS ?', username)[0][0]
