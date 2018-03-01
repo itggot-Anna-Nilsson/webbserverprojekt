@@ -22,7 +22,7 @@ class Get < Sinatra::Base
         db = SQLite3::Database.open('db/db.sqlite') 
         id = params['id']        
         db.execute('SELECT * FROM logs WHERE kampanj_id is ?', id) 
-        slim :'mutant'
+        slim :'kampanj'
 
         #implementering av block, tillkommer 
         # Kampanj.one( {id: 1})
@@ -74,7 +74,7 @@ class Get < Sinatra::Base
     #halvklar implementering
     #måste fixa routen
 
-#-------------------------------------------------------------------------
+#-------------------------------------------------------
 
     post '/remove_log/:id' do
         db = SQLite3::Database.open('db/db.sqlite')
