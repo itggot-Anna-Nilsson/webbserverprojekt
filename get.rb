@@ -40,6 +40,7 @@ class Get < Sinatra::Base
         Kampanj.add_kampanj(namn, status, self)
     end
 
+    #ska tas bort
     get '/logs' do
         if session[:admin]
            @all_logs = Logs.loggar
@@ -77,22 +78,16 @@ class Get < Sinatra::Base
 #-------------------------------------------------------
 
     post '/remove_log/:id' do
-        db = SQLite3::Database.open('db/db.sqlite')
         id = params['id']          
-        db.execute('DELETE FROM logs WHERE id is ?', id) 
-        redirect '/logs'       
+        Logs.remove_log(id, self)      
     end
 
     post '/add_log' do
-        #Logs.add_log(self)
-        db = SQLite3::Database.open('db/db.sqlite')
         titel = params['title']
         kampanj = params['kampanj']
         text = params['log']
         picture = params['picture']
-        postdate = Time.now.strftime("%H:%M %d-%m-%Y")  
-        db.execute('INSERT INTO logs (kampanj_id, Title, Text, Picture, Postdate) VALUES (?,?,?,?,?)', [kampanj, titel, text, picture, postdate])        
-        redirect '/logs'
+        Logs.add_log(titel, kampanj, text, picture, self)
     end
     
 end
