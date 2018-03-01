@@ -1,2 +1,25 @@
 a> href="/kampanjer" HOME
 
+form action='/add_log' method='post'
+    input.logg_text type='text' name='kampanj'placeholder='Kampanj'
+    br
+    input.logg_date type='text' name='title' placeholder='Title'
+    br
+    input.logg_summary type='text' name='log' placeholder='log'
+    br
+    input.logg_text type='text' name='picture'placeholder='picture(eventuell)'
+    br
+    button type='submit' Submit!
+
+
+-if @all_logs != nil 
+    - for log in @all_logs
+        h1 = Logs.titel
+        h3 = Logs.postdate
+        p = Logs.text
+        
+
+        - if Logs.id
+            form action="remove_log/#{Logs.id}" method='post'
+                button type='submit' Ta bort
+
