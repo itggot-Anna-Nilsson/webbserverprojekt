@@ -17,7 +17,7 @@ class Logs
         result_from_db = db.execute('SELECT * FROM logs')
         log_list = []
         result_from_db.each do |log|
-            log_list << Logs.new(log)
+            log_list << self.new(log)
         end
         return log_list
     end

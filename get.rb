@@ -40,7 +40,8 @@ class Get < Sinatra::Base
 
     end
 
-    #ska tas bort
+    #url säkra koden med slug
+    #flytta till /kampanj/:id (...) 
     #skulle kunna ta ut kampanj id här (???)
     get '/logs' do
         if session[:admin]
