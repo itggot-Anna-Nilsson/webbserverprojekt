@@ -15,13 +15,13 @@ form action='/add_log' method='post'
 
 -if @all_logs != nil 
     - for log in @all_logs
-        h1 = Logs.titel
-        h3 = Logs.postdate
-        p = Logs.text
+        h1 = log.titel
+        h3 = log.postdate
+        p = log.text
         
 
-        - if Logs.id
-            form action="remove_log/#{Logs.id}" method='post'
+        - if log.id
+            form action="remove_log/#{log.id}" method='post'
                 button type='submit' Ta bort
 
 
