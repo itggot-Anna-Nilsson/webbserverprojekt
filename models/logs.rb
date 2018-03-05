@@ -7,14 +7,29 @@ class Logs
         @kampanj_id = log_list[1]
         @titel = log_list[2]
         @text = log_list[3]
-        @picture = log_list[4] #picture kommer att vara nil många gånger, hur fungerar det?
+        @picture = log_list[4] 
         @postdate = log_list[5]
     end
 
 
-    def self.all
+    def self.all(*args)
+        args = args[0]
         db = SQLite3::Database.open('db/db.sqlite')            
-        result_from_db = db.execute('SELECT * FROM logs')
+        db_s = "SELECT * FROM logs" #db.execute('SELECT * FROM logs')
+
+        if args
+            for key in args.keys
+                if key == args.keys[0]
+                    db_s += " WHERE"
+                else 
+                    db_s += " AND"
+                end
+                db_s += " #{key.to_s} IS #{args[key]}"
+            end
+        end
+
+        result_from_db = db.execute(db_s)
+        
         log_list = []
         result_from_db.each do |log|
             log_list << self.new(log)
@@ -22,23 +37,22 @@ class Logs
         return log_list
     end
 
-    # def self.loggar()
-    #     db = SQLite3::Database.open('db/db.sqlite')            
-    #     return db.execute('SELECT * FROM logs')   
-    # end
 
-    def self.remove_log(id, get)
+    def self.remove_log(id, get, kampanj, namn )
         db = SQLite3::Database.open('db/db.sqlite')         
         db.execute('DELETE FROM logs WHERE id is ?', id) 
-        get.redirect '/logs'
+        kampanj_id = kampanj
+        kampanj_namn = namn
+        get.redirect "/kampanj/#{kampanj_id}/#{kampanj_namn}"
     end  
 
-    def self.add_log(titel, kampanj, text, picture, get)
+    def self.add_log(titel, kampanj, text, picture, kampanj_namn, get)
         db = SQLite3::Database.open('db/db.sqlite')
-        # måste hitta rätt id til kampanjnamnet
         postdate = Time.now.strftime("%H:%M %d-%m-%Y")  
         db.execute('INSERT INTO logs (kampanj_id, Title, Text, Picture, Postdate) VALUES (?,?,?,?,?)', [kampanj, titel, text, picture, postdate])        
-        get.redirect '/logs'
+        id = kampanj
+        namn = kampanj_namn
+        get.redirect "/kampanj/#{id}/#{namn}"
     end
 
 

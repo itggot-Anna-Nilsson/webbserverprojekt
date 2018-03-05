@@ -1,7 +1,10 @@
 a> href="/kampanjer" HOME
 
+h1 #{@name}
+
 form action='/add_log' method='post'
-    input.logg_text type='text' name='kampanj'placeholder='Kampanj'
+    input type='hidden' value=@id name='kampanj_id'
+    input type='hidden' value=@name name='kampanj_namn'
     br
     input.logg_date type='text' name='title' placeholder='Title'
     br
@@ -21,5 +24,7 @@ form action='/add_log' method='post'
 
         - if log.id
             form action="remove_log/#{log.id}" method='post'
+                input type='hidden' value=@id name='kampanj_id'
+                input type='hidden' value=@name name='kampanj_namn'
                 button type='submit' Ta bort
 

@@ -24,45 +24,39 @@ class Get < Sinatra::Base
         Kampanj.add_kampanj(namn, status, self)
     end
 
+    #url-säkra koden med slug
+
     get '/kampanj/:id/:name' do
-        db = SQLite3::Database.open('db/db.sqlite') 
-        id = params['id']        
-        db.execute('SELECT * FROM logs WHERE kampanj_id is ?', id) 
-        slim :'kampanj'
+        @name = params['name']
+        @id = params['id']        
+       if session[:admin]
+            @all_logs = Logs.all(kampanj_id: @id)
+            slim :'kampanj'
+        else
+            halt 401, slim(:forbidden, layout: false)
+        end
 
         #implementering av block, tillkommer 
         # Kampanj.one( {id: 1})
         # Kampanj.one( {name: "woot"} )
-
         # Kampanj.all( {status: :active})
-
         # Kampanj.all_active
-
     end
-
-    #url säkra koden med slug
-    #flytta till /kampanj/:id (...) 
-    #skulle kunna ta ut kampanj id här (???)
-    get '/logs' do
-        if session[:admin]
-           @all_logs = Logs.all
-           slim :'logs'
-        else
-            halt 401, slim(:forbidden, layout: false)
-        end
-    end
-
+    
     post '/remove_log/:id' do
-        id = params['id']          
+        id = params['id'] 
+        kampanj = params['kampanj_id']  
+        namn = params['kampanj_namn']       
         Logs.remove_log(id, self)      
     end
 
     post '/add_log' do
         titel = params['title']
-        kampanj = params['kampanj']
+        kampanj = params['kampanj_id']
         text = params['log']
         picture = params['picture']
-        Logs.add_log(titel, kampanj, text, picture, self)
+        kampanj_namn = params['kampanj_namn']
+        Logs.add_log(titel, kampanj, text, picture, kampanj_namn, self)
     end
 
     post '/login' do #test - 123
