@@ -44,6 +44,7 @@ class Logs
         kampanj_id = kampanj
         kampanj_namn = namn
         get.redirect "/kampanj/#{kampanj_id}/#{kampanj_namn}"
+        # kampanj_namn verkar ta "remove log som värde"
     end  
 
     def self.add_log(titel, kampanj, text, picture, kampanj_namn, get)
