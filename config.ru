@@ -8,6 +8,7 @@ Bundler.require
 require_relative 'get.rb'
 
 #Load the models 
+require_relative 'extensions/string'
 require_relative 'models/logs'
 require_relative 'models/user'
 require_relative 'models/kampanj'

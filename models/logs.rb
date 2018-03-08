@@ -11,11 +11,10 @@ class Logs
         @postdate = log_list[5]
     end
 
-
     def self.all(*args)
         args = args[0]
         db = SQLite3::Database.open('db/db.sqlite')            
-        db_s = "SELECT * FROM logs" #db.execute('SELECT * FROM logs')
+        db_s = "SELECT * FROM logs"
 
         if args
             for key in args.keys
@@ -37,13 +36,12 @@ class Logs
         return log_list
     end
 
-
     def self.remove_log(id, get, kampanj, namn )
         db = SQLite3::Database.open('db/db.sqlite')         
         db.execute('DELETE FROM logs WHERE id is ?', id) 
         kampanj_id = kampanj
         kampanj_namn = namn
-        get.redirect "/kampanj/#{kampanj_id}/#{kampanj_namn}"
+        get.redirect "/kampanj/#{kampanj_id}/#{kampanj_namn.to_slug}"
         # kampanj_namn verkar ta "remove log som värde"
     end  
 
@@ -53,7 +51,7 @@ class Logs
         db.execute('INSERT INTO logs (kampanj_id, Title, Text, Picture, Postdate) VALUES (?,?,?,?,?)', [kampanj, titel, text, picture, postdate])        
         id = kampanj
         namn = kampanj_namn
-        get.redirect "/kampanj/#{id}/#{namn}"
+        get.redirect "/kampanj/#{id}/#{namn.to_slug}"
     end
 
 

@@ -24,8 +24,6 @@ class Get < Sinatra::Base
         Kampanj.add_kampanj(namn, status, self)
     end
 
-    #url-säkra koden med slug
-
     get '/kampanj/:id/:name' do
         @name = params['name']
         @id = params['id']        

@@ -12,6 +12,6 @@ form action='/add_kampanj' method='post'
 
 div.kampanj
     -for kampanj in @campaigns
-        a href="/kampanj/#{kampanj.id}/#{kampanj.namn}"
+        a href="/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
             h2.ktitle = kampanj.namn
 

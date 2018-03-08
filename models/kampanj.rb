@@ -34,9 +34,6 @@ class Kampanj
 
     # placeholders
 
-    def self.loggar
-    end
-
     def self.users
     end
     
