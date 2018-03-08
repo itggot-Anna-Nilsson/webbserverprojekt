@@ -25,10 +25,10 @@ class Get < Sinatra::Base
     end
 
     get '/kampanj/:id/:name' do
-        @name = params['name']
-        @id = params['id']        
+        id = params['id']
+        @kampanj = Kampanj.one(id)        
        if session[:admin]
-            @all_logs = Logs.all(kampanj_id: @id)
+            @all_logs = Logs.all(kampanj_id: @id) #anropp här till det som va fel
             slim :'kampanj'
         else
             halt 401, slim(:forbidden, layout: false)
@@ -41,6 +41,13 @@ class Get < Sinatra::Base
         # Kampanj.all_active
     end
     
+    post '/kampanj/:kampanj_id/log/:log_id/remove' do
+        kampanj_namn = Kampanj.one(id)
+        kampanj_id = params['kampanj_id']
+        log_id = params['log_id']
+        Logs.remove_log(log_id, kampanj_id, kampanj_namn, self)
+    end
+
     post '/remove_log/:id' do
         id = params['id'] 
         kampanj = params['kampanj_id']  

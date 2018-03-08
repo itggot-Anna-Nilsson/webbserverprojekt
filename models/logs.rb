@@ -36,11 +36,11 @@ class Logs
         return log_list
     end
 
-    def self.remove_log(id, get, kampanj, namn )
+    def self.remove_log(id, get, kampanj_id, kampanj_namn )
         db = SQLite3::Database.open('db/db.sqlite')         
         db.execute('DELETE FROM logs WHERE id is ?', id) 
-        kampanj_id = kampanj
-        kampanj_namn = namn
+        kampanj_id = kampanj_id
+        kampanj_namn = kampanj_namn
         get.redirect "/kampanj/#{kampanj_id}/#{kampanj_namn.to_slug}"
         # kampanj_namn verkar ta "remove log som värde"
     end  

@@ -21,8 +21,8 @@ class Kampanj
     #VET INTE OM JAG KOMMER HA ID, behöver ha något
     def self.one(hash)
         db = SQLite3::Database.open('db/db.sqlite')
-        one = db.execute('SELECT * FROM Campaigns WHERE id IS ?', @id)
-        return one
+        one = db.execute('SELECT * FROM Campaigns WHERE id IS ?', hash)[0]
+        return self.new(one)
     end
 
     def self.add_kampanj(namn, status, get)
