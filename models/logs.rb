@@ -15,7 +15,6 @@ class Logs
         args = args[0]
         db = SQLite3::Database.open('db/db.sqlite')            
         db_s = "SELECT * FROM logs"
-
         if args
             for key in args.keys
                 if key == args.keys[0]
@@ -28,7 +27,6 @@ class Logs
         end
 
         result_from_db = db.execute(db_s)
-        
         log_list = []
         result_from_db.each do |log|
             log_list << self.new(log)
