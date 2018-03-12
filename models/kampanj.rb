@@ -3,7 +3,7 @@ class Kampanj
     attr_reader :id, :namn, :status
 
     def initialize(kamp_list)
-        @id = kamp_list[0] #problem
+        @id = kamp_list[0] #problem för "REMOVE log"
         @namn = kamp_list[1]
         @status = kamp_list[2]
     end
@@ -22,6 +22,7 @@ class Kampanj
     def self.one(hash)
         db = SQLite3::Database.open('db/db.sqlite')
         one = db.execute('SELECT * FROM Campaigns WHERE id IS ?', hash)[0]
+        #byebug
         return self.new(one)
     end
 

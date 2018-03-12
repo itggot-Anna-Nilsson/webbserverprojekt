@@ -43,7 +43,8 @@ class Get < Sinatra::Base
     
     post '/kampanj/:kampanj_id/log/:log_id/remove' do
         id = params['log_id']
-        kampanj_namn = Kampanj.one(id)
+        @kampanj = Kampanj.one(id)
+        kampanj_namn = @kampanj.namn
         kampanj_id = params['kampanj_id']
         Logs.remove_log(id, kampanj_id, kampanj_namn, self)
     end
