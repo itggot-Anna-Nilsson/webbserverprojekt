@@ -14,13 +14,19 @@ form action='/add_log' method='post'
     br
     button type='submit' Submit!
 
+/  form action='/add_player'
+/     input.logg_text type='text' name='user_name'placeholder='Playername'
+/     br
+/     button type='submit' Submit!
+    / lägger till spelare när själva kampanjen är skapad.
+    / Den som skapar blit automatiskt SL
+
 
 -if @all_logs != nil 
     - for log in @all_logs
         h1 = log.titel
         h3 = log.postdate
         p = log.text
-        
 
         - if log.id
             form action="/kampanj/#{@kampanj.id}/log/#{log.id}/remove" method='post'
