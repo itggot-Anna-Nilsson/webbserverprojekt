@@ -22,7 +22,6 @@ class Kampanj
     def self.one(hash)
         db = SQLite3::Database.open('db/db.sqlite')
         one = db.execute('SELECT * FROM Campaigns WHERE id IS ?', hash)[0]
-        #byebug
         return self.new(one)
     end
 
@@ -32,6 +31,14 @@ class Kampanj
         get.redirect 'kampanjer'
     end
 
+    def self.add_player(user_name, kampanj_id, kampanj, kampanj_namn)
+        db = SQLite3::Database.open('db/db.sqlite')
+        user_id = db.execute('SELECT id FROM Users WHERE Name is ?', user_name)
+        db.execute('INSERT INTO Memberships(User_id, Campaign_id) VALUES(?,?)',[user_id, kampanj_id])
+        id = kampanj
+        namn = kampanj_namn
+        get.redirect "/kampanj/#{id}/#{namn.to_slug}"
+    end
 
     # placeholders
 

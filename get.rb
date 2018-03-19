@@ -24,6 +24,10 @@ class Get < Sinatra::Base
         Kampanj.add_kampanj(namn, status, self)
     end
 
+    post '/add_player' do
+
+    end
+
     get '/kampanj/:id/:name' do       
        if session[:admin]
             id = params['id']
@@ -42,19 +46,9 @@ class Get < Sinatra::Base
     end
     
     post '/kampanj/:kampanj_id/log/:log_id/remove' do
-        id = params['log_id']
-        @kampanj = Kampanj.one(id)
-        kampanj_namn = @kampanj.namn
-        kampanj_id = params['kampanj_id']
-        Logs.remove_log(id, kampanj_id, kampanj_namn, self)
+        Logs.remove_log(params['log_id'], params['kampanj_id'], self)
+        
     end
-
-    # post '/remove_log/:id' do
-    #     id = params['id'] 
-    #     kampanj = params['kampanj_id']  
-    #     namn = params['kampanj_namn']       
-    #     Logs.remove_log(id, self)      
-    # end
 
     post '/add_log' do
         titel = params['title']
