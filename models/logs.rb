@@ -39,7 +39,6 @@ class Logs
         db.execute('DELETE FROM logs WHERE id is ?', id)
         kampanj = Kampanj.one(kampanj_id)
         get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
-        # kampanj_namn verkar ta "remove log som värde"
     end  
 
     def self.add_log(titel, kampanj, text, picture, kampanj_namn, get)

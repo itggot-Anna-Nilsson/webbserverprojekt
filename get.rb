@@ -24,8 +24,9 @@ class Get < Sinatra::Base
         Kampanj.add_kampanj(namn, status, self)
     end
 
+    #HALVKLAR
     post '/add_player' do
-
+        Kampanj.add_player(user_name, kampanj_id, self)
     end
 
     get '/kampanj/:id/:name' do       
@@ -47,7 +48,6 @@ class Get < Sinatra::Base
     
     post '/kampanj/:kampanj_id/log/:log_id/remove' do
         Logs.remove_log(params['log_id'], params['kampanj_id'], self)
-        
     end
 
     post '/add_log' do
