@@ -2,6 +2,10 @@ a> href="/kampanjer" HOME
 
 h1 #{@kampanj.namn}
 
+form action="/kampanj/#{@kampanj.id}/remove" method='post'
+    button type='submit' Ta bort kampanj!
+
+
 form action='/add_log' method='post'
     input type='hidden' value=@kampanj.id name='kampanj_id'
     input type='hidden' value=@kampanj.namn name='kampanj_namn'

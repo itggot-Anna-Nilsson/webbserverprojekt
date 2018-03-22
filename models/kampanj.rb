@@ -31,6 +31,15 @@ class Kampanj
         get.redirect 'kampanjer'
     end
 
+    #UNDER HERE
+    def self.remove_kampanj(kampanj_id, get )
+        puts "---------------------------"
+        puts kampanj_id
+        db = SQLite3::Database.open('db/db.sqlite')      
+        db.execute('DELETE FROM Campaigns WHERE id is ?', kampanj_id)
+        get.redirect "/kampanjer"
+    end 
+
     def self.add_player(user_name, kampanj_id, get)
         db = SQLite3::Database.open('db/db.sqlite')
         kampanj = Kampanj.one(kampanj_id)
