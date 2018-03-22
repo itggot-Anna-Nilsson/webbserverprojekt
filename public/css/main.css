@@ -45,12 +45,18 @@ header{
 .kampanj{
     position: absolute;
     right: 20px;
-    top: 100px;
+    top: 160px;
     width: 300px;
     max-height: 600px;
     overflow-y: scroll;
     background-color: #080808;
     overflow-wrap: break-word;
+}
+
+.left_title{
+    position: absolute;
+    right: 30px;
+    top: 100px;
 }
 
 .ktitle{

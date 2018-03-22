@@ -1,5 +1,3 @@
-h1 Samlade kampanjer
-
 h2 Skapa ny Kampanj
 form action='/add_kampanj' method='post'
     input.logg_text type='text' name='namn'placeholder='Namn'
@@ -9,9 +7,8 @@ form action='/add_kampanj' method='post'
         option Slutförd
     button type='submit' Submit!
         
-
+h1.left_title Samlade kampanjer
 div.kampanj
     -for kampanj in @campaigns
         a href="/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
             h2.ktitle = kampanj.namn
-
