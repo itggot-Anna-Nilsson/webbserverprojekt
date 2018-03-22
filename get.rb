@@ -28,9 +28,9 @@ class Get < Sinatra::Base
         Kampanj.remove_kampanj( params['kampanj_id'], self)
     end
 
-    #HALVKLARLogs
+    #HALVKLAR
     post '/add_player' do
-        Kampanj.add_player(user_name, kampanj_id, self)
+        Kampanj.add_player(params['user_name'], params['kampanj_id'], self)
     end
 
     get '/kampanj/:id/:name' do       

@@ -5,11 +5,10 @@ h1 #{@kampanj.namn}
 form action="/kampanj/#{@kampanj.id}/remove" method='post'
     button type='submit' Ta bort kampanj!
 
-
+h2 Add log
 form action='/add_log' method='post'
     input type='hidden' value=@kampanj.id name='kampanj_id'
     input type='hidden' value=@kampanj.namn name='kampanj_namn'
-    br
     input.logg_date type='text' name='title' placeholder='Title'
     br
     input.logg_summary type='text' name='log' placeholder='log'
@@ -17,14 +16,18 @@ form action='/add_log' method='post'
     input.logg_text type='text' name='picture'placeholder='picture(eventuell)'
     br
     button type='submit' Submit!
+    br
 
-/  form action='/add_player'
-/     input.logg_text type='text' name='user_name'placeholder='Playername'
-/     br
-/     button type='submit' Submit!
-    / lägger till spelare när själva kampanjen är skapad.
-    / Den som skapar ska automatiskt bli SL
-
+h2 Add Player
+form action='/add_player' method='post'
+    input.logg_text type='text' name='user_name'placeholder='Playername'
+    br
+    button type='submit' Submit!
+    br
+/ska fixas här under
+    / -if @all_players != nil
+    /     - for player in @all_players
+    /         h2 = Kampanj.user
 
 -if @all_logs != nil 
     - for log in @all_logs
