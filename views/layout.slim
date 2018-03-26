@@ -7,7 +7,7 @@ html
         header
             .logout
                 - if session[:admin]
-                    h1.main_title The World HUB
+                    a.main_title href="/kampanjer" The World HUB
                     div.out 
                         h3.username #{session[:username]}
                         form action='/logout' method='post'

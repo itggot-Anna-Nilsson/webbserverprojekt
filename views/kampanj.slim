@@ -1,9 +1,7 @@
-a> href="/kampanjer" HOME
-
 h1 #{@kampanj.namn}
 
 form action="/kampanj/#{@kampanj.id}/remove" method='post'
-    button type='submit' Ta bort kampanj!
+    button.remove type='submit' Ta bort kampanj!
 
 h2 Add log
 form action='/add_log' method='post'
