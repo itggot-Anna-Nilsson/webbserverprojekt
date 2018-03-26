@@ -80,3 +80,8 @@ header{
     right: 30px;
     top: 100px;
 }
+
+.warning{
+    margin-top: 20px;
+    font-size: 2em;
+}
