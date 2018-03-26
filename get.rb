@@ -1,6 +1,7 @@
 class Get < Sinatra::Base
 
     enable :sessions
+    register Sinatra::Flash
 
     get '/' do
         if session[:admin]
@@ -28,7 +29,6 @@ class Get < Sinatra::Base
         Kampanj.remove_kampanj( params['kampanj_id'], self)
     end
 
-    #HALVKLAR
     post '/kampanj/:kampanj_id/add_player' do
         Kampanj.add_player(params['user_name'], params['kampanj_id'], self)
     end
@@ -84,6 +84,10 @@ class Get < Sinatra::Base
 
     get '/wrongkey' do
         slim :'wrongkey'
+    end
+
+    get '/unknownuser'do
+        slim :'unknownuser'
     end
     
 end

@@ -16,6 +16,9 @@ form action='/add_log' method='post'
     button type='submit' Submit!
     br
 
+-if flash[:error]
+    div.warning= flash[:error]
+
 h2 Add Player
 form action='/kampanj/#{@kampanj.id}/add_player' method='post'
     input.logg_text type='text' name='user_name'placeholder='Playername'

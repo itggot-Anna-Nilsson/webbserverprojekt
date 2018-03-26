@@ -38,12 +38,15 @@ class Kampanj
         get.redirect "/kampanjer"
     end 
 
-    #UNDER HERE
+
     def self.add_player(user_name, kampanj_id, get)
         db = SQLite3::Database.open('db/db.sqlite')
-        kampanj = Kampanj.one(kampanj_id) #något som blir fel här
+        kampanj = Kampanj.one(kampanj_id)
         user_id = db.execute('SELECT id FROM Users WHERE Name is ?', user_name)[0]
-        db.execute('INSERT INTO Memberships(Users_id, Campaign_id) VALUES(?,?)',[user_id, kampanj_id])
+        if user_id != nil
+            db.execute('INSERT INTO Memberships(Users_id, Campaign_id) VALUES(?,?)',[user_id, kampanj_id])
+        end
+        get.flash[:error] = "Användaren finns inte."
         get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
 
