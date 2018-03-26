@@ -51,7 +51,7 @@ header{
 .kampanj{
     position: absolute;
     right: 20px;
-    top: 160px;
+    top: 140px;
     width: 300px;
     max-height: 600px;
     overflow-y: scroll;
@@ -62,7 +62,7 @@ header{
 .left_title{
     position: absolute;
     right: 30px;
-    top: 100px;
+    top: 70px;
 }
 
 .ktitle{
