@@ -46,7 +46,7 @@ class Kampanj
         if user_id != nil
             db.execute('INSERT INTO Memberships(Users_id, Campaign_id) VALUES(?,?)',[user_id, kampanj_id])
         end
-        get.flash[:error] = "Användaren finns inte."
+        get.flash[:error] = "Användaren finns inte." #verkar finnas kvar när man lägger till en ytterligare spelare trots att det fungerar
         get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
 
