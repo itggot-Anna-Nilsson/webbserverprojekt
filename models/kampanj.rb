@@ -42,14 +42,20 @@ class Kampanj
     def self.add_player(user_name, kampanj_id, get)
         db = SQLite3::Database.open('db/db.sqlite')
         kampanj = Kampanj.one(kampanj_id) #något som blir fel här
-        user_id = db.execute('SELECT id FROM Users WHERE Name is ?', user_name)
-        db.execute('INSERT INTO Memberships(User_id, Campaign_id) VALUES(?,?)',[user_id, kampanj_id])
+        user_id = db.execute('SELECT id FROM Users WHERE Name is ?', user_name)[0]
+        db.execute('INSERT INTO Memberships(Users_id, Campaign_id) VALUES(?,?)',[user_id, kampanj_id])
         get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
 
-    # placeholders
+    # placeholder
 
     def self.users
+        db = SQLite3::Database.open('db/db.sqlite')
+        kampanj = Kampanj.one(kampanj_id)
+        users = db.execute('SELECT ALL FROM  Memberships WHERE Campaign_id IS ?', kampanj_id)
+        #ska skapa en lista/ ett object med alla spelare 
+        #i respektive kampanj
+        get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
     
 end

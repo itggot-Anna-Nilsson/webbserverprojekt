@@ -29,9 +29,10 @@ class Get < Sinatra::Base
     end
 
     #HALVKLAR
-    post '/add_player' do
+    post '/kampanj/:kampanj_id/add_player' do
         Kampanj.add_player(params['user_name'], params['kampanj_id'], self)
     end
+
 
     get '/kampanj/:id/:name' do       
        if session[:admin]
