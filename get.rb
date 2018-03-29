@@ -38,7 +38,8 @@ class Get < Sinatra::Base
        if session[:admin]
             id = params['id']
             @kampanj = Kampanj.one(id)
-            @all_logs = Logs.all(kampanj_id: id) 
+            @all_logs = Logs.all(kampanj_id: id)
+            @all_players = Kampanj.users(id) 
             slim :'kampanj'
         else
             halt 401, slim(:forbidden, layout: false)

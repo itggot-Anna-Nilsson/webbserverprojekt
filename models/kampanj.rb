@@ -45,20 +45,16 @@ class Kampanj
         user_id = db.execute('SELECT id FROM Users WHERE Name is ?', user_name)[0]
         if user_id != nil
             db.execute('INSERT INTO Memberships(Users_id, Campaign_id) VALUES(?,?)',[user_id, kampanj_id])
+            #get.flash[:error] = "Användaren tillagd."
         end
         get.flash[:error] = "Användaren finns inte." #verkar finnas kvar när man lägger till en ytterligare spelare trots att det fungerar
         get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
 
-    # placeholder
-
-    def self.users
+    def self.users(id)
         db = SQLite3::Database.open('db/db.sqlite')
-        kampanj = Kampanj.one(kampanj_id)
-        users = db.execute('SELECT ALL FROM  Memberships WHERE Campaign_id IS ?', kampanj_id)
-        #ska skapa en lista/ ett object med alla spelare 
-        #i respektive kampanj
-        get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
+        users = db.execute('SELECT Name FROM Users WHERE id IN (SELECT Users_id FROM Memberships WHERE Campaign_id IS ?)', id)
+        return users
     end
     
 end

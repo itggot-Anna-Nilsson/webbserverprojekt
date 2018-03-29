@@ -26,10 +26,10 @@ form action='/kampanj/#{@kampanj.id}/add_player' method='post'
     button type='submit' Submit!
     br
     
-/ska fixas här under
-    / -if @all_players != nil
-    /     - for player in @all_players
-    /         h2 = Kampanj.user
+
+-if @all_players != nil
+    - for player in @all_players
+        h2 = player[0]
 
 -if @all_logs != nil 
     - for log in @all_logs
