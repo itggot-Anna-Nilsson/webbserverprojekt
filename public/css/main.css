@@ -85,3 +85,9 @@ header{
     margin-top: 20px;
     font-size: 2em;
 }
+
+.player{
+    position: absolute;
+    right: 30px;
+    top: 120px;
+}
