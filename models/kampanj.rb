@@ -17,8 +17,7 @@ class Kampanj
         end  
         return kamp_list
     end
-
-    
+ 
     def self.one(hash)
         db = SQLite3::Database.open('db/db.sqlite')
         one = db.execute('SELECT * FROM Campaigns WHERE id IS ?', hash)[0]
@@ -31,13 +30,11 @@ class Kampanj
         get.redirect 'kampanjer'
     end
 
-    
     def self.remove_kampanj(kampanj_id, get )
         db = SQLite3::Database.open('db/db.sqlite')      
         db.execute('DELETE FROM Campaigns WHERE id is ?', kampanj_id)
         get.redirect "/kampanjer"
     end 
-
 
     def self.add_player(user_name, kampanj_id, get)
         db = SQLite3::Database.open('db/db.sqlite')
@@ -45,9 +42,10 @@ class Kampanj
         user_id = db.execute('SELECT id FROM Users WHERE Name is ?', user_name)[0]
         if user_id != nil
             db.execute('INSERT INTO Memberships(Users_id, Campaign_id) VALUES(?,?)',[user_id, kampanj_id])
-            #get.flash[:error] = "Användaren tillagd."
+            get.flash[:error] = "Användaren tillagd."
+        else
+            get.flash[:error] = "Användaren finns inte." 
         end
-        get.flash[:error] = "Användaren finns inte." #verkar finnas kvar när man lägger till en ytterligare spelare trots att det fungerar
         get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
 
