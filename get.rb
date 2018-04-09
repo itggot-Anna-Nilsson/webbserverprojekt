@@ -3,20 +3,23 @@ class Get < Sinatra::Base
     enable :sessions
     register Sinatra::Flash
 
-    get '/' do
+    before do
         if session[:admin]
             @admin = true
         end
+        allowed_urls = ['/', '/login', '/wrongkey', '/forbidden']
+        unless allowed_urls.include?(request.path)
+            redirect "/forbidden" unless session[:admin] 
+        end
+    end
+
+    get '/' do
         slim :'login'
     end
     
     get '/kampanjer' do
-        if session[:admin]
-            @campaigns = Kampanj.all
-            slim :'kampanjer'
-        else
-            halt 401, slim(:forbidden, layout: false)
-        end
+        @campaigns = Kampanj.all
+        slim :'kampanjer'
     end
 
     post '/add_kampanj' do
@@ -33,23 +36,17 @@ class Get < Sinatra::Base
         Kampanj.add_player(params['user_name'], params['kampanj_id'], self)
     end
 
-
     get '/kampanj/:id/:name' do       
-       if session[:admin]
-            id = params['id']
-            @kampanj = Kampanj.one(id)
-            @all_logs = Logs.all(kampanj_id: id)
-            @all_players = Kampanj.users(id) 
-            slim :'kampanj'
-        else
-            halt 401, slim(:forbidden, layout: false)
-        end
-
-        #implementering av block, tillkommer 
-        # Kampanj.one( {id: 1})
-        # Kampanj.one( {name: "woot"} )
-        # Kampanj.all( {status: :active})
-        # Kampanj.all_active
+        id = params['id']
+        @kampanj = Kampanj.one(id)
+        @all_logs = Logs.all(kampanj_id: id)
+        @all_players = Kampanj.users(id) 
+        slim :'kampanj'
+    #implementering av block, tillkommer 
+    # Kampanj.one( {id: 1})
+    # Kampanj.one( {name: "woot"} )
+    # Kampanj.all( {status: :active})
+    # Kampanj.all_active
     end
     
     post '/kampanj/:kampanj_id/log/:log_id/remove' do
@@ -74,7 +71,7 @@ class Get < Sinatra::Base
     post '/new_user' do
         username = params['username']
         password = params['password']
-        key = params['key']
+        key = params['key'] #4242
         User.new_user(username, password, key, self)
     end
 
@@ -87,8 +84,8 @@ class Get < Sinatra::Base
         slim :'wrongkey'
     end
 
-    get '/unknownuser'do
-        slim :'unknownuser'
+    get '/forbidden'do
+        halt 401, slim(:forbidden, layout: false)
     end
     
 end
