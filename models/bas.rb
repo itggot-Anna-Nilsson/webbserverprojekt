@@ -1,5 +1,4 @@
 class Bas
-#glöm inte ladda in den i models
 
 def one
 end
@@ -12,6 +11,5 @@ end
 
 def delete
 end 
-
 
 end
