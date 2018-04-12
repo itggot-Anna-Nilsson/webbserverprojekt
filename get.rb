@@ -42,7 +42,7 @@ class Get < Sinatra::Base
         @all_logs = Logs.all(kampanj_id: id)
         @all_players = Kampanj.users(id) 
         slim :'kampanj'
-    #implementering av block, tillkommer 
+    #implementering av block, tillkommer (????)
     # Kampanj.one( {id: 1})
     # Kampanj.one( {name: "woot"} )
     # Kampanj.all( {status: :active})

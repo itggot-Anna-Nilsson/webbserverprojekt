@@ -1,37 +1,17 @@
-class Logs
+class Logs < Bas
 
     attr_reader :id, :kampanj_id, :titel, :text, :picture, :postdate
 
-    def initialize(log_list)
-        @id = log_list[0]
-        @kampanj_id = log_list[1]
-        @titel = log_list[2]
-        @text = log_list[3]
-        @picture = log_list[4] 
-        @postdate = log_list[5]
-    end
+    table_name('logs')
+    columns(['id', 'kampanj_id', 'titel', 'text', 'picture', 'postdate'])
 
-    def self.all(*args)
-        args = args[0]
-        db = SQLite3::Database.open('db/db.sqlite')            
-        db_s = "SELECT * FROM logs"
-        if args
-            for key in args.keys
-                if key == args.keys[0]
-                    db_s += " WHERE"
-                else 
-                    db_s += " AND"
-                end
-                db_s += " #{key.to_s} IS #{args[key]}"
-            end
-        end
-
-        result_from_db = db.execute(db_s)
-        log_list = []
-        result_from_db.each do |log|
-            log_list << self.new(log)
-        end
-        return log_list
+    def initialize(all_list)
+        @id = all_list[0]
+        @kampanj_id = all_list[1]
+        @titel = all_list[2]
+        @text = all_list[3]
+        @picture = all_list[4] 
+        @postdate = all_list[5] 
     end
 
     def self.remove_log(id, kampanj_id, get )

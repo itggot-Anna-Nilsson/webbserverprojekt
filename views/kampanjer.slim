@@ -11,4 +11,5 @@ h1.left_title Samlade kampanjer
 div.kampanj
     -for kampanj in @campaigns
         a href="/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
-            h2.ktitle = kampanj.namn
+            h2.ktitle = kampanj.namn 
+            
