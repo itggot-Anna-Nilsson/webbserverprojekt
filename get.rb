@@ -9,7 +9,7 @@ class Get < Sinatra::Base
         end
         allowed_urls = ['/', '/login', '/wrongkey', '/forbidden']
         unless allowed_urls.include?(request.path)
-            redirect "/forbidden" unless session[:admin] 
+            redirect "/forbidden" unless @admin 
         end
     end
 
