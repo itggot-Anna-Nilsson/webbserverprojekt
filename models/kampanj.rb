@@ -3,14 +3,14 @@ class Kampanj < Bas
     attr_reader :id, :namn, :status
 
     table_name('Campaigns')
-    columns(['id', 'namn', 'status'])
+    columns(['namn', 'status'])
 
     def initialize(all_list)
         @id = all_list[0]
         @namn = all_list[1]
         @status = all_list[2]
     end
-    
+
     def self.add_kampanj(namn, status, get)
         db = SQLite3::Database.open('db/db.sqlite')
         db.execute('INSERT INTO Campaigns(Name,Status) VALUES(?,?)',[namn, status])

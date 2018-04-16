@@ -63,9 +63,10 @@ class Bas
         return all_list
     end
 
-    def add
-
-
+    #Kampanj.add(title: params['title'], ...)
+    #User.add(username: params['username'], password = password_hash)
+    def add(hash)
+        submitted_columns = hash.keys #ger alla nycklar den skickat med 
     end 
 
     def remove
