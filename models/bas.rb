@@ -3,24 +3,46 @@ class Bas
     def initialize()
     end
 
+    #Creates a variable containing tablename
+    #
+    #@params table_name [String] The table name
+    #@return [String] A string containing the table name
     def self.table_name(name)
         @table_name = name
     end
 
+    #Creates a variable containing the columns of the table
+    #
+    #@params columns [Array] A list containing the column names
+    #@return [Array] A list containing the column names
     def self.columns(columns)
         @columns = columns
     end
 
+    #Creates the route to the database unless it already exists
+    #
+    #@return [SQLite3::Database] the database
+    def self.db
+        @db ||= SQLite3::Database.open('db/db.sqlite')
+        return @db
+    end
+
+    #Creates an Array containing one row from the database
+    #
+    #@param hash [String] contains the id 
+    #@return [Array] the list containing one row from the database
     def self.one(hash)
-        db = SQLite3::Database.open('db/db.sqlite')
-        db_s = "SELECT * FROM#{@table_name}WHERE id IS ?"
+        db_s = "SELECT * FROM #{@table_name} WHERE id IS ?"
         one = db.execute(db_s, hash)[0]
         return self.new(one)
     end
-
+    
+    #Creates an Array containing multiple rows from the database
+    #
+    #@param *args [String] contains the column name and value
+    #@return [Array] the list containing the specified columns 
     def self.all(*args)
-        args = args[0]
-        db = SQLite3::Database.open('db/db.sqlite')            
+        args = args[0]            
         db_s = "SELECT * FROM #{@table_name}"
         if args
             for key in args.keys

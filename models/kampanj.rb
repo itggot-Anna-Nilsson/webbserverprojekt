@@ -10,13 +10,7 @@ class Kampanj < Bas
         @namn = all_list[1]
         @status = all_list[2]
     end
- 
-    def self.one(hash)
-        # db = SQLite3::Database.open('db/db.sqlite')
-        # one = db.execute('SELECT * FROM Campaigns WHERE id IS ?', hash)[0]
-        # return self.new(one)
-    end
-
+    
     def self.add_kampanj(namn, status, get)
         db = SQLite3::Database.open('db/db.sqlite')
         db.execute('INSERT INTO Campaigns(Name,Status) VALUES(?,?)',[namn, status])
