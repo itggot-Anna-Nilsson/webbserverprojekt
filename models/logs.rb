@@ -21,14 +21,14 @@ class Logs < Bas
         get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end  
 
-    def self.add_log(titel, kampanj, text, picture, kampanj_namn, get)
-        db = SQLite3::Database.open('db/db.sqlite')
-        postdate = Time.now.strftime("%H:%M %d-%m-%Y")  
-        db.execute('INSERT INTO logs (kampanj_id, Title, Text, Picture, Postdate) VALUES (?,?,?,?,?)', [kampanj, titel, text, picture, postdate])        
-        id = kampanj
-        namn = kampanj_namn
-        get.redirect "/kampanj/#{id}/#{namn.to_slug}"
-    end
+    # def self.add_log(titel, kampanj, text, picture, kampanj_namn, get)
+    #     db = SQLite3::Database.open('db/db.sqlite')
+    #     postdate = Time.now.strftime("%H:%M %d-%m-%Y")  
+    #     db.execute('INSERT INTO logs (kampanj_id, Title, Text, Picture, Postdate) VALUES (?,?,?,?,?)', [kampanj, titel, text, picture, postdate])        
+    #     id = kampanj
+    #     namn = kampanj_namn
+    #     get.redirect "/kampanj/#{id}/#{namn.to_slug}"
+    # end
 
 
 end

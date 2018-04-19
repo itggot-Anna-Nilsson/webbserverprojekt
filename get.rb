@@ -25,7 +25,8 @@ class Get < Sinatra::Base
     post '/add_kampanj' do
         namn = params['namn']
         status = params['status']
-        Kampanj.add_kampanj(namn, status, self)
+        Kampanj.add(Name: namn, Status: status)
+        redirect 'kampanjer'
     end
 
     post '/kampanj/:kampanj_id/remove' do
@@ -53,8 +54,9 @@ class Get < Sinatra::Base
         kampanj = params['kampanj_id']
         text = params['log']
         picture = params['picture']
-        kampanj_namn = params['kampanj_namn']
-        Logs.add_log(titel, kampanj, text, picture, kampanj_namn, self)
+        namn = params['kampanj_namn'] #används för att redirecta till rätt kampanj
+        Logs.add(kampanj_id: kampanj, Titel: titel, Text: text, Picture: picture)
+        redirect "/kampanj/#{id}/#{namn.to_slug}"
     end
 
     post '/login' do #test - 123
