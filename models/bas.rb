@@ -63,10 +63,10 @@ class Bas
         return all_list
     end
 
-    #Adds
+    #Adds new values (rows) to the database
     #
     #@param hash [String] contains the column name and value
-    #@return 
+    #@returns nothing
     def self.add(hash)
 
         submitted_columns = ""
@@ -83,13 +83,13 @@ class Bas
         value += "?"
 
         query = "INSERT INTO #{@table_name}(#{submitted_columns.to_s}) VALUES(#{value})"
-        db.execute(query, hash.values)
+        p db.execute(query, hash.values)
     end 
 
-    #Removes rows from the database
+    #Removes data (rows) from the database
     #
     #@param id [String] contains the id of the specific row
-    #
+    #@returns nothing
     def self.remove(id)
         query = "DELETE FROM #{@table_name} WHERE id IS ?"
         db.execute(query, id)
