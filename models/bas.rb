@@ -29,7 +29,7 @@ class Bas
 
     #Creates an Array containing one row from the database
     #
-    #@param hash [String] contains the id 
+    #@param hash [Hash] contains the id 
     #@return [Array] the list containing one row from the database
     def self.one(hash)
         query = "SELECT * FROM #{@table_name} WHERE id IS ?"
@@ -63,27 +63,42 @@ class Bas
         return all_list
     end
 
-    #Adds new values (rows) to the database
+    #Takes a hash's keys and arrange them into a string for SQLite use
     #
-    #@param hash [String] contains the column name and value
-    #@returns nothing
-    def self.add(hash)
-
+    #@param hash [Hash] contains the column keys and value
+    #@return [String] a string containing the keys from the hash
+    def self.submitted_columns(hash)
         submitted_columns = ""
         (hash.length-1).times do |i|
             submitted_columns += hash.keys[i].to_s 
             submitted_columns += ", "
         end
         submitted_columns += hash.keys[-1].to_s
+        return submitted_columns
+    end
 
+    #Takes a hash's lenght and returns an equal amount of "?" for SQLite use
+    #
+    #@param hash [Hash] contains the column keys and value
+    #@return [String] a string containing an equal amount of "?"
+    def self.value(hash)
         value = ""
         (hash.length-1).times do 
             value += "?, "
         end
         value += "?"
+        return value
+    end
 
-        query = "INSERT INTO #{@table_name}(#{submitted_columns.to_s}) VALUES(#{value})"
-        p db.execute(query, hash.values)
+    #Adds new values (rows) to the database
+    #
+    #@param hash [Hash] contains the column name and value
+    #@returns nothing
+    def self.add(hash)
+        value = Bas.value(hash)
+        columns = Bas.submitted_columns(hash)
+        query = "INSERT INTO #{@table_name}(#{columns}) VALUES(#{value})"
+        db.execute(query, hash.values)
     end 
 
     #Removes data (rows) from the database

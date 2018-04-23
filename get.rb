@@ -25,7 +25,7 @@ class Get < Sinatra::Base
     post '/add_kampanj' do
         namn = params['namn']
         status = params['status']
-        Kampanj.add(Name: namn, Status: status)
+        Kampanj.add({Name: namn, Status: status})
         redirect 'kampanjer'
     end
 
@@ -41,7 +41,7 @@ class Get < Sinatra::Base
     get '/kampanj/:id/:name' do       
         id = params['id']
         @kampanj = Kampanj.one(id)
-        @all_logs = Logs.all(kampanj_id: id)
+        @all_logs = Logs.all({kampanj_id: id})
         @all_players = Kampanj.users(id) 
         slim :'kampanj'
     end
@@ -50,7 +50,6 @@ class Get < Sinatra::Base
         kampanj_id = params['kampanj_id']
         id = params['log_id']
         Logs.remove(id)
-        
         kampanj = Kampanj.one(kampanj_id)
         redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
@@ -62,7 +61,7 @@ class Get < Sinatra::Base
         picture = params['picture']
         namn = params['kampanj_namn'] #används för att redirecta till rätt kampanj
         date = Time.now.strftime("%H:%M %d-%m-%Y")
-        Logs.add(kampanj_id: kampanj, Title: titel, Text: text, Picture: picture, Postdate: date)
+        Logs.add({kampanj_id: kampanj, Title: titel, Text: text, Picture: picture, Postdate: date})
         redirect "/kampanj/#{kampanj}/#{namn.to_slug}"
     end
 
