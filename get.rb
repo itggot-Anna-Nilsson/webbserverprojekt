@@ -55,8 +55,9 @@ class Get < Sinatra::Base
         text = params['log']
         picture = params['picture']
         namn = params['kampanj_namn'] #används för att redirecta till rätt kampanj
-        Logs.add(kampanj_id: kampanj, Titel: titel, Text: text, Picture: picture)
-        redirect "/kampanj/#{id}/#{namn.to_slug}"
+        date = Time.now.strftime("%H:%M %d-%m-%Y")
+        Logs.add(kampanj_id: kampanj, Title: titel, Text: text, Picture: picture, Postdate: date)
+        redirect "/kampanj/#{kampanj}/#{namn.to_slug}"
     end
 
     post '/login' do #test - 123

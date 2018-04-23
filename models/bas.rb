@@ -63,14 +63,18 @@ class Bas
         return all_list
     end
 
-    #Kampanj.add(title: params['title'], ...)
-    #User.add(username: params['username'], password = password_hash)
+    #Adds
+    #
+    #@param hash [String] contains the column name and value
+    #@return ??????????????????
     def self.add(hash)
-        submitted_columns = "" #ger alla nycklar den skickat med
-        (hash.length).times do |i|
-            submitted_columns += hash.keys[i].to_s #måste fixa en komma emellan
+
+        submitted_columns = ""
+        (hash.length-1).times do |i|
+            submitted_columns += hash.keys[i].to_s 
+            submitted_columns += ", "
         end
-        p submitted_columns
+        submitted_columns += hash.keys[-1].to_s
 
         value = ""
         (hash.length-1).times do 
@@ -79,7 +83,6 @@ class Bas
         value += "?"
 
         query = "INSERT INTO #{@table_name}(#{submitted_columns.to_s}) VALUES(#{value})"
-        p query
         db.execute(query, hash.values)
     end 
 
