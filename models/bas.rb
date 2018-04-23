@@ -66,7 +66,7 @@ class Bas
     #Adds
     #
     #@param hash [String] contains the column name and value
-    #@return ??????????????????
+    #@return 
     def self.add(hash)
 
         submitted_columns = ""
@@ -86,8 +86,13 @@ class Bas
         db.execute(query, hash.values)
     end 
 
-    def self.remove
-        
+    #Removes rows from the database
+    #
+    #@param id [String] contains the id of the specific row
+    #
+    def self.remove(id)
+        query = "DELETE FROM #{@table_name} WHERE id IS ?"
+        db.execute(query, id)
     end 
 
 end

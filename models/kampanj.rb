@@ -11,18 +11,6 @@ class Kampanj < Bas
         @status = all_list[2]
     end
 
-    # def self.add_kampanj(namn, status, get)
-    #     db = SQLite3::Database.open('db/db.sqlite')
-    #     db.execute('INSERT INTO Campaigns(Name,Status) VALUES(?,?)',[namn, status])
-    #     get.redirect 'kampanjer'
-    # end
-
-    def self.remove_kampanj(kampanj_id, get )
-        db = SQLite3::Database.open('db/db.sqlite')      
-        db.execute('DELETE FROM Campaigns WHERE id is ?', kampanj_id)
-        get.redirect "/kampanjer"
-    end 
-
     def self.add_player(user_name, kampanj_id, get)
         db = SQLite3::Database.open('db/db.sqlite')
         kampanj = Kampanj.one(kampanj_id)

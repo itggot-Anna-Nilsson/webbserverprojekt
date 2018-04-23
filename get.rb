@@ -30,7 +30,8 @@ class Get < Sinatra::Base
     end
 
     post '/kampanj/:kampanj_id/remove' do
-        Kampanj.remove_kampanj( params['kampanj_id'], self)
+        Kampanj.remove(params['kampanj_id'])
+        redirect "/kampanjer"
     end
 
     post '/kampanj/:kampanj_id/add_player' do
@@ -46,7 +47,12 @@ class Get < Sinatra::Base
     end
     
     post '/kampanj/:kampanj_id/log/:log_id/remove' do
-        Logs.remove_log(params['log_id'], params['kampanj_id'], self)
+        kampanj_id = params['kampanj_id']
+        id = params['log_id']
+        Logs.remove(id)
+        
+        kampanj = Kampanj.one(kampanj_id)
+        redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
 
     post '/add_log' do
