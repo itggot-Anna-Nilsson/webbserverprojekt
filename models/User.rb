@@ -3,16 +3,19 @@ class User
     attr_reader :username
 
     def self.login (username, password, get)
+        db = SQLite3::Database.open('db/db.sqlite')
         #fungerar inte om man försöker använda ett användarnamn som inte finns
-        db = SQLite3::Database.open('db/db.sqlite')        
-        hash = db.execute('SELECT hash FROM Users WHERE name IS ?', username)[0][0]
-        stored_password = BCrypt::Password.new(hash)
-                if stored_password == username + password
-                    get.session[:admin] = true
-                    get.session[:username] = username
-                    get.redirect '/kampanjer'
-                end
-        get.redirect '/'
+        hash = db.execute('SELECT hash FROM Users WHERE name IS ?', username)[0] #krashar här vet inte varför
+        if hash
+            stored_password = BCrypt::Password.new(hash[0])
+            if stored_password == username + password
+                get.session[:admin] = true
+                get.session[:username] = username
+                get.redirect '/kampanjer'
+            end
+        else
+            get.redirect '/wrongkey'
+        end
     end
 
     def self.new_user (username, password, key, get)
