@@ -4,8 +4,7 @@ class User
 
     def self.login (username, password, get)
         db = SQLite3::Database.open('db/db.sqlite')
-        #fungerar inte om man försöker använda ett användarnamn som inte finns
-        hash = db.execute('SELECT hash FROM Users WHERE name IS ?', username)[0] #krashar här vet inte varför
+        hash = db.execute('SELECT hash FROM Users WHERE name IS ?', username)[0]
         if hash
             stored_password = BCrypt::Password.new(hash[0])
             if stored_password == username + password
