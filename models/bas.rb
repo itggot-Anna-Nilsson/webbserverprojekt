@@ -44,17 +44,12 @@ class Bas
     def self.all(*args)
         args = args[0]            
         query = "SELECT * FROM #{@table_name}"
-        if args # korta ner (ternary if)
+        if args
             for key in args.keys
-                if key == args.keys[0]
-                    query += " WHERE"
-                else 
-                    query += " AND"
-                end
+                query += key == args.keys[0] ? " WHERE" : " AND"
                 query += " #{key.to_s} IS #{args[key]}"
             end
         end
-
         result_from_db = db.execute(query)
         all_list = []
         result_from_db.each do |one|
