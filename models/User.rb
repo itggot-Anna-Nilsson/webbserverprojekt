@@ -3,9 +3,8 @@ class User
     attr_reader :username
 
     def self.login (username, password, get)
-        db = SQLite3::Database.open('db/db.sqlite')
-        hash = db.execute('SELECT hash FROM Users WHERE name IS ?', username)[0]
-        if hash
+        hash = Bas.db.execute('SELECT hash FROM Users WHERE name IS ?', username)[0] # en tom array ger [] men [0] på en tom array returnerar nil
+        if hash 
             stored_password = BCrypt::Password.new(hash[0])
             if stored_password == username + password
                 get.session[:admin] = true
