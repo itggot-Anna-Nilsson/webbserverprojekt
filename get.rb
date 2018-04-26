@@ -7,7 +7,7 @@ class Get < Sinatra::Base
         if session[:admin]
             @admin = true
         end
-        allowed_urls = ['/', '/login', '/wrongkey', '/forbidden']
+        allowed_urls = ['/', '/login', '/wrongkey', '/forbidden', '/new_user']
         unless allowed_urls.include?(request.path)
             redirect "/forbidden" unless @admin 
         end
@@ -59,7 +59,7 @@ class Get < Sinatra::Base
         kampanj = params['kampanj_id']
         text = params['log']
         picture = params['picture']
-        namn = params['kampanj_namn'] #används för att redirecta till rätt kampanj
+        namn = params['kampanj_namn']
         date = Time.now.strftime("%H:%M %d-%m-%Y")
         Logs.add({kampanj_id: kampanj, Title: titel, Text: text, Picture: picture, Postdate: date})
         redirect "/kampanj/#{kampanj}/#{namn.to_slug}"

@@ -18,23 +18,20 @@ class User
     end
 
     def self.new_user (username, password, key, get)
-        db = SQLite3::Database.open('db/db.sqlite')
-        username_list = db.execute('SELECT name FROM Users')[0]
-        unused_username = true
-
-        if username_list != nil
-            for i in username_list
-                if username == i
-                    unused_username = false
-                end
-            end
+        p "HELLO"
+        username_list = Bas.db.execute('SELECT name FROM Users')[0]
+        usernames = []
+        for i in username_list
+            usernames << i[0]
         end
+        unused_username = !(usernames.include?(username))
+        p key
+        p unused_username
 
         if key == "4242" && unused_username
             cleartext = username + password
             hash = BCrypt::Password.create(cleartext)
-            salt = hash.salt
-            db.execute('INSERT INTO users (name, hash) VALUES(?,?)', [username, hash])
+            Bas.db.execute('INSERT INTO users (name, hash) VALUES(?,?)', [username, hash])
             get.session[:admin] = true
             get.session[:username] = username
             get.redirect '/kampanjer'
