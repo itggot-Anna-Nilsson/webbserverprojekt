@@ -24,7 +24,6 @@ class Bas
     #@return [SQLite3::Database] the database
     def self.db
         @db ||= SQLite3::Database.open('db/db.sqlite')
-        return @db
     end
 
     #Creates an Array containing one row from the database
@@ -44,12 +43,14 @@ class Bas
     def self.all(*args)
         args = args[0]            
         query = "SELECT * FROM #{@table_name}"
+
         if args
             for key in args.keys
                 query += key == args.keys[0] ? " WHERE" : " AND"
                 query += " #{key.to_s} IS #{args[key]}"
             end
         end
+
         result_from_db = db.execute(query)
         all_list = []
         result_from_db.each do |one|
@@ -90,8 +91,8 @@ class Bas
     #@param hash [Hash] contains the column name and value
     #@returns nothing
     def self.add(hash)
-        value = Bas.value(hash)
-        columns = Bas.submitted_columns(hash)
+        value = self.value(hash)
+        columns = self.submitted_columns(hash)
         query = "INSERT INTO #{@table_name}(#{columns}) VALUES(#{value})"
         db.execute(query, hash.values)
     end 
