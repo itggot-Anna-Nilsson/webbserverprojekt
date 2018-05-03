@@ -3,7 +3,7 @@ class Logs < Bas
     attr_reader :id, :kampanj_id, :titel, :text, :picture, :postdate
 
     table_name('logs')
-    columns(['kampanj_id', 'titel', 'text', 'picture', 'postdate'])
+    column(['kampanj_id', 'titel', 'text', 'picture', 'postdate'])
 
     def initialize(all_list)
         @id = all_list[0]

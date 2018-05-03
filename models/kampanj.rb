@@ -3,7 +3,7 @@ class Kampanj < Bas
     attr_reader :id, :namn, :status
 
     table_name('Campaigns')
-    columns(['namn', 'status'])
+    column(['namn', 'status'])
 
     def initialize(all_list)
         @id = all_list[0]

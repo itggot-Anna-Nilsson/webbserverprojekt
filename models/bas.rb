@@ -15,8 +15,12 @@ class Bas
     #
     #@params columns [Array] A list containing the column names
     #@return [Array] A list containing the column names
-    def self.columns(columns)
-        @columns = columns
+    def self.column(columns)
+        #@columns = columns
+        @columns = []
+        for i in columns
+            @columns << i 
+        end 
     end
 
     #Creates the route to the database unless it already exists
@@ -93,7 +97,7 @@ class Bas
     def self.add(hash)
         value = self.value(hash)
         columns = self.submitted_columns(hash)
-        query = "INSERT INTO #{@table_name}(#{columns}) VALUES(#{value})"
+        query = "INSERT INTO #{@table_name}(#{column}) VALUES(#{value})"
         db.execute(query, hash.values)
     end 
 
