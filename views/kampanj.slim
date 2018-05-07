@@ -20,7 +20,10 @@ form action='/add_log' method='post'
     div.warning= flash[:error]
 
 
-div.player    
+div.player 
+    h1 Game master
+    h2 #{@kampanj.gm}
+    h2 ____________________
     h1 Players
     -if @all_players != nil
         - for player in @all_players

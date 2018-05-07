@@ -16,6 +16,11 @@ class User < Bas
         end
     end
 
+    def self.game_master(kampanj_id, username)
+        kampanj = Kampanj.one(kampanj_id)
+        return kampanj.gm == username
+    end
+
     def self.new_user (username, password, key, get)
         username_list = self.db.execute('SELECT name FROM Users')[0]
         usernames = []

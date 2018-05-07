@@ -93,7 +93,7 @@ class Bas
     def self.add(hash)
         value = self.value(hash)
         columns = self.submitted_columns(hash)
-        query = "INSERT INTO #{@table_name}(#{column}) VALUES(#{value})"
+        query = "INSERT INTO #{@table_name}(#{columns}) VALUES(#{value})"
         db.execute(query, hash.values)
     end 
 

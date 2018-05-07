@@ -25,17 +25,26 @@ class Get < Sinatra::Base
     post '/add_kampanj' do
         namn = params['namn']
         status = params['status']
-        Kampanj.add({Name: namn, Status: status})
+        GM = session[:username]
+        Kampanj.add({Name: namn, Status: status, Admin: GM})
         redirect 'kampanjer'
     end
 
     post '/kampanj/:kampanj_id/remove' do
-        Kampanj.remove(params['kampanj_id'])
-        redirect "/kampanjer"
+        if User.game_master(params['kampanj_id'], session[:username])
+            Kampanj.remove(params['kampanj_id'])
+            redirect "/kampanjer"
+        else
+            kampanj = Kampanj.one(params['kampanj_id'])
+            redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
+        end
     end
 
-    post '/kampanj/:kampanj_id/add_player' do
-        Kampanj.add_player(params['user_name'], params['kampanj_id'], self)
+    post '/kampanj/:kampanj_id/add_player' do #ska fixas: GM tilsstånd
+        if kampanj = Kampanj.one(params['kampanj_id']) #&& User.game_master(params['kampanj_id'], session[:username])
+            kampanj.add_player(params['user_name'], self)
+        end
+        redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
 
     get '/kampanj/:id/:name' do       
@@ -47,10 +56,11 @@ class Get < Sinatra::Base
     end
     
     post '/kampanj/:kampanj_id/log/:log_id/remove' do
-        kampanj_id = params['kampanj_id']
-        id = params['log_id']
-        Logs.remove(id)
-        kampanj = Kampanj.one(kampanj_id)
+        kampanj = Kampanj.one(params['kampanj_id'])
+        if User.game_master(params['kampanj_id'], session[:username])
+            id = params['log_id']
+            Logs.remove(id)
+        end
         redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
 

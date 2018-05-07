@@ -1,27 +1,26 @@
 class Kampanj < Bas
 
-    attr_reader :id, :namn, :status
+    attr_reader :id, :namn, :status, :gm
 
     table_name('Campaigns')
-    column(['namn', 'status'])
+    column(['namn', 'status', 'admin'])
 
     def initialize(all_list)
         @id = all_list[0]
         @namn = all_list[1]
         @status = all_list[2]
+        @gm = all_list[3]
     end
 
-    def self.add_player(user_name, kampanj_id, get)
+    def add_player(user_name, get)
         db = SQLite3::Database.open('db/db.sqlite')
-        kampanj = Kampanj.one(kampanj_id)
         user_id = db.execute('SELECT id FROM Users WHERE Name is ?', user_name)[0]
         if user_id != nil
-            db.execute('INSERT INTO Memberships(Users_id, Campaign_id) VALUES(?,?)',[user_id, kampanj_id])
+            db.execute('INSERT INTO Memberships(Users_id, Campaign_id) VALUES(?,?)',[user_id, @id])
             get.flash[:error] = "Användaren tillagd."
         else
             get.flash[:error] = "Användaren finns inte." 
         end
-        get.redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"
     end
 
     def self.users(id)
