@@ -1,8 +1,5 @@
 class Bas
 
-    def initialize()
-    end
-
     #Creates a variable containing tablename
     #
     #@params table_name [String] The table name
