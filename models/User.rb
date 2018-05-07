@@ -23,8 +23,14 @@ class User < Bas
             usernames << i[0]
         end
         unused_username = !(usernames.include?(username))
+        
+        if username = "" || password = ""
+            not_empty = false 
+        else    
+            not_empty = true
+        end
 
-        if key == "4242" && unused_username
+        if key == "4242" && unused_username && not_empty
             cleartext = username + password
             hash = BCrypt::Password.create(cleartext)
             self.db.execute('INSERT INTO users (name, hash) VALUES(?,?)', [username, hash])

@@ -16,7 +16,6 @@ class Bas
     #@params columns [Array] A list containing the column names
     #@return [Array] A list containing the column names
     def self.column(columns)
-        #@columns = columns
         @columns = []
         for i in columns
             @columns << i 
