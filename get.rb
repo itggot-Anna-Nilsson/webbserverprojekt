@@ -40,8 +40,9 @@ class Get < Sinatra::Base
         end
     end
 
-    post '/kampanj/:kampanj_id/add_player' do #ska fixas: GM tilsstånd
-        if kampanj = Kampanj.one(params['kampanj_id']) #&& User.game_master(params['kampanj_id'], session[:username])
+    post '/kampanj/:kampanj_id/add_player' do
+        kampanj = Kampanj.one(params['kampanj_id'])
+        if User.game_master(params['kampanj_id'], session[:username])
             kampanj.add_player(params['user_name'], self)
         end
         redirect "/kampanj/#{kampanj.id}/#{kampanj.namn.to_slug}"

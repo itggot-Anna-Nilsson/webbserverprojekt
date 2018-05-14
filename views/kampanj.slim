@@ -29,13 +29,15 @@ div.player
         - for player in @all_players
             h2 = player[0]
     h2 ____________________
-    h2 Add Player
-    form action='/kampanj/#{@kampanj.id}/add_player' method='post'
-        input.logg_text type='text' name='user_name'placeholder='Playername'
-        br
-        button type='submit' Submit!
-        br
-/ kom ihåg att skriva om 
+    
+    -if User.game_master(@kampanj.id, session[:username])
+        h2 Add Player
+        form action='/kampanj/#{@kampanj.id}/add_player' method='post'
+            input.logg_text type='text' name='user_name'placeholder='Playername'
+            br
+            button type='submit' Submit!
+            br
+ 
 -if @all_logs != nil 
     - for log in @all_logs
         h1 = log.titel
